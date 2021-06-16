@@ -56,10 +56,14 @@ uneOrdenado (x:xs) (y:ys) | x <=y = x : (uneOrdenado xs (y:ys))
 -- [1,2,3,4]
 
 {-
-Usando a função uneOrdenado, defina uma função 
+4) Usando a função uneOrdenado, defina uma função 
 ordenaUne :: [Int] -> [Int] que particiona sucessivamente uma lista na 
 metade até atingir partições de tamanho 1 para então ordenar as partições 
 através da  função uneOrdenado até atingir uma lista ordenada. Considere uma 
 lista vazia e a uma lista com um elemento como ordenadas na sua definição.
 -}
 
+ordenaUne :: [Int] -> [Int]
+ordenaUne x = x
+ordenaUne xs | (ordenaUne (take (length xs) xs)) >= (ordenaUne (drop (length xs) xs)) = (uneOrdenado (ordenaUne (drop (length xs) xs)) (ordenaUne (take (length xs) xs)))
+             | (ordenaUne (take (length xs) xs)) <= (ordenaUne (drop (length xs) xs)) = (uneOrdenado (ordenaUne (take (length xs) xs)) (ordenaUne (drop (length xs) xs)))
