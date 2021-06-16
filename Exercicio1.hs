@@ -7,11 +7,12 @@ Mostre o passo-a-passo da aplicação de insere 3 [1,2,4,5]
 -}
 
 insere :: Ord a => a -> [a] -> [a]
-insere e ls = insertBy (compare) e ls
+insere x []     = [x]
+insere x (y:ys) | x<=y  = x : y : ys
+                | otherwise = y : insere x ys
 
-insertBy :: (a -> a -> Ordering) -> a -> [a] -> [a]
-insertBy _   x [] = [x]
-insertBy cmp x ys@(y:ys')
- = case cmp x y of
-     GT -> y : insertBy cmp x ys'
-     _  -> x : ys
+-- insere 3 [1,2,4,5]
+-- 1 : insere 3 [2,4,5]
+-- 1 : (2 : insere 3 [4,5])
+-- 1 : (2 : 3 : 4 : [5])
+-- [1,2,3,4,5]
