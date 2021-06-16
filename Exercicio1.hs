@@ -64,6 +64,14 @@ lista vazia e a uma lista com um elemento como ordenadas na sua definição.
 -}
 
 ordenaUne :: [Int] -> [Int]
-ordenaUne x = x
-ordenaUne xs | (ordenaUne (take (length xs) xs)) >= (ordenaUne (drop (length xs) xs)) = (uneOrdenado (ordenaUne (drop (length xs) xs)) (ordenaUne (take (length xs) xs)))
-             | (ordenaUne (take (length xs) xs)) <= (ordenaUne (drop (length xs) xs)) = (uneOrdenado (ordenaUne (take (length xs) xs)) (ordenaUne (drop (length xs) xs)))
+ordenaUne x  = x
+ordenaUne (x:xs) = uneOrdenado (ordenaUne (take ((length xs)`div` 2) xs)) (ordenaUne (drop ((length xs) `div` 2) xs))
+
+
+{-
+[4,2,5,1]
+[4,2][5,1]
+[4][2][5][1] 
+
+[2,4]
+-}
