@@ -45,9 +45,10 @@ resultante que também deve estar em ordem crescente.
 -}
 
 uneOrdenado :: Ord a => [a] -> [a]-> [a]
-uneOrdenado [] y = y
+uneOrdenado [] ys         = ys
+uneOrdenado xs []         = xs
 uneOrdenado (x:xs) (y:ys) | x <=y = x : (uneOrdenado xs (y:ys))
-                          | y <=x = y : (uneOrdenado (x:xs) ys)
+                          | otherwise = y : (uneOrdenado (x:xs) ys)
 
 -- uneOrdenado [1,2] [1,3,4]
 -- 1 : uneOrdenado [2] [1,3,4]
@@ -64,14 +65,16 @@ lista vazia e a uma lista com um elemento como ordenadas na sua definição.
 -}
 
 ordenaUne :: [Int] -> [Int]
-ordenaUne x  = x
-ordenaUne (x:xs) = uneOrdenado (ordenaUne (take ((length xs)`div` 2) xs)) (ordenaUne (drop ((length xs) `div` 2) xs))
-
+ordenaUne []  = []
+ordenaUne [x] = [x]
+ordenaUne xs = uneOrdenado (ordenaUne ys) (ordenaUne zs)
+            where (ys,zs)     = splitAt ((length xs)`div` 2) xs
 
 {-
-[4,2,5,1]
-[4,2][5,1]
-[4][2][5][1] 
-
-[2,4]
+--ordenaUne [3,2,1]
+--uneOrdenado (ordenaUne [3]) (ordenaUne[2,1])
+--uneOrdenado (uneOrdenado [] [3]) (uneOrdenado ( ordenaUne [2]) (ordenaUne [1]))
+--uneOrdenado ( [3] ) (uneOrdenado ([][2])([][1]))
+--uneOrdenado ([3])([1,2])
+-- [1,2,3]
 -}
