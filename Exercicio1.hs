@@ -78,3 +78,14 @@ ordenaUne xs = uneOrdenado (ordenaUne ys) (ordenaUne zs)
 --uneOrdenado ([3])([1,2])
 -- [1,2,3]
 -}
+
+{-
+5)
+ZipWith recebe uma função e duas listas como parâmetros e então junta as duas listas aplicando a função entre os elementos correspondentes.
+O primeiro parâmetro é uma função que recebe duas coisas e produz uma terceira. O segundo e o terceiro parâmetro são listas. O resultado é também uma lista.
+O primeiro tem que ser uma lista de as, porque a função de junção recebe as como primeiros argumentos.
+A segunda tem que ser uma lista de bs, porque o segundo argumento da função é do tipo b. O resultado é uma lista de cs.
+Se a declaração do tipo de uma função diz que ela aceita uma função a -> b -> c como parâmetro, ela também aceitará uma função a -> a -> a, mas não o contrário!
+O corpo da função no último pattern é também parecido com zip normal, mas ele não faz (x,y), e sim f x y.
+Uma única função de alta ordem pode ser usada para uma enorme variedade de tarefas se é suficientemente geral.
+-}
