@@ -76,14 +76,14 @@ ordenaUne xs = uneOrdenado (ordenaUne ys) (ordenaUne zs)
 
 
 -- funcao recebe uma lista de inteiros desordenados, separa as listas e posteriormente vai unindo elas de maneira ordenada
-{-
+
 --ordenaUne [3,2,1]
 --uneOrdenado (ordenaUne [3]) (ordenaUne[2,1])
 --uneOrdenado (uneOrdenado [] [3]) (uneOrdenado ( ordenaUne [2]) (ordenaUne [1]))
 --uneOrdenado ( [3] ) (uneOrdenado ([][2])([][1]))
 --uneOrdenado ([3])([1,2])
 -- [1,2,3]
--}
+
 
 {-
 5) Explique a função padrão zipWith cuja definição é a seguinte:
@@ -114,7 +114,7 @@ disjuntas (x:xs) ys
   | elem x ys = False
   | otherwise = disjuntas xs ys
 
--- pega um elemento pro vez da lista 1 e compara com a segunda lista 
+-- pega um elemento por vez da lista 1 e compara com a segunda lista 
 -- caso o elemento colida a verificacao = true, return = false
 -- caso nao tenha elemento colidindo a verificacao = false, e o codigo continua percorrendo a linha até o fim
 
