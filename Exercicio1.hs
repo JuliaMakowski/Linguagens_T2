@@ -10,6 +10,7 @@ insere :: Ord a => a -> [a] -> [a]
 insere x []     = [x]
 insere x (y:ys) | x<=y  = x : y : ys
                 | otherwise = y : insere x ys
+-- funcao rece um numero inteiro e uma lista de inteiros ordenada, depois aloca o numero na sua posicao correta (em odem crescente)
 
 -- insere 3 [1,2,4,5]
 -- 1 : insere 3 [2,4,5]
@@ -28,6 +29,8 @@ lista que já deve estar ordenado.
 ordenaInsere :: Ord a => [a] -> [a]
 ordenaInsere [] = []
 ordenaInsere (x:xs) = insere x (ordenaInsere xs)
+
+-- funcao recebe uma lista de inteiros desordenada e com auxilio do metodo insere (feito anteriormente) ordena essa lista com um metodo recursivo
 
 -- ordenaInsere [3,2,1,4]
 -- insere 3 (ordenaInsere [2,1,4])
@@ -49,6 +52,7 @@ uneOrdenado [] ys         = ys
 uneOrdenado xs []         = xs
 uneOrdenado (x:xs) (y:ys) | x <=y = x : (uneOrdenado xs (y:ys))
                           | otherwise = y : (uneOrdenado (x:xs) ys)
+-- funcao recebe duas listas de inteiros ordenadas e une as listas em ordem crescente
 
 -- uneOrdenado [1,2] [1,3,4]
 -- 1 : uneOrdenado [2] [1,3,4]
@@ -70,6 +74,8 @@ ordenaUne [x] = [x]
 ordenaUne xs = uneOrdenado (ordenaUne ys) (ordenaUne zs)
             where (ys,zs)     = splitAt ((length xs)`div` 2) xs
 
+
+-- funcao recebe uma lista de inteiros desordenados, separa as listas e posteriormente vai unindo elas de maneira ordenada
 {-
 --ordenaUne [3,2,1]
 --uneOrdenado (ordenaUne [3]) (ordenaUne[2,1])
@@ -80,7 +86,11 @@ ordenaUne xs = uneOrdenado (ordenaUne ys) (ordenaUne zs)
 -}
 
 {-
-5)
+5) Explique a função padrão zipWith cuja definição é a seguinte:
+zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
+zipWith f (x:xs) (y:ys)=f x y : zipWith f xs ys
+zipWith f _      _      = []
+
 ZipWith recebe uma função e duas listas como parâmetros e então junta as duas listas aplicando a função entre os elementos correspondentes.
 O primeiro parâmetro é uma função que recebe duas coisas e produz uma terceira. O segundo e o terceiro parâmetro são listas. O resultado é também uma lista.
 O primeiro tem que ser uma lista de as, porque a função de junção recebe as como primeiros argumentos.
@@ -89,3 +99,29 @@ Se a declaração do tipo de uma função diz que ela aceita uma função a -> b
 O corpo da função no último pattern é também parecido com zip normal, mas ele não faz (x,y), e sim f x y.
 Uma única função de alta ordem pode ser usada para uma enorme variedade de tarefas se é suficientemente geral.
 -}
+
+
+{-
+7) Dê uma definição para a função
+
+disjuntas :: (Ord a) => [a] -> [a] -> Bool
+
+que recebe duas listas em ordem crescente e determina se as mesmas não possuem nenhum elemento em comum, isto é, se são disjuntas.
+-}
+disjuntas :: (Ord a) => [a] -> [a] -> Bool
+disjuntas [] _ = True
+disjuntas (x:xs) ys
+  | elem x ys = False
+  | otherwise = disjuntas xs ys
+
+-- pega um elemento pro vez da lista 1 e compara com a segunda lista 
+-- caso o elemento colida a verificacao = true, return = false
+-- caso nao tenha elemento colidindo a verificacao = false, e o codigo continua percorrendo a linha até o fim
+
+-- então fica assim:
+-- [3,4,6] [6,7,8]
+-- elem 3 [6,7,8] -- false entra no otherwise 
+-- disjuntas [4,6] [6,7,8]
+-- elem 4 [6,7,8] -- false entra no otherwise 
+-- disjuntas [6] [6,7,8]
+-- elem 6 [6,7,8] -- true return false, nao é disjunta 
